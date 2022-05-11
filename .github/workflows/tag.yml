@@ -10,9 +10,9 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Get version
         id: vars
-        uses: actions/checkout@v2
         run: echo ::set-output name=version::$(cat version.txt)
       - name: Create tag
         uses: actions/github-script@v5
