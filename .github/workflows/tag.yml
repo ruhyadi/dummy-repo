@@ -1,4 +1,4 @@
-name: Create Tag
+name: Continuous Integration - Automatic Tagging
 
 on:
   push:
@@ -17,6 +17,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/2.0',
+              ref: 'refs/tags/$(cat version.txt)',
               sha: context.sha
             })
