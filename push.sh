@@ -4,7 +4,7 @@ branch=$1
 version=$2
 echo "[branch: $branch, version: $version]"
 
-git branch -d $branch
+git branch -D $branch
 git push origin --delete $branch
 
 git checkout -b $branch

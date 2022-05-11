@@ -10,8 +10,6 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: Read version
-        run: cat version.txt >> $VERSION
       - name: Create tag
         uses: actions/github-script@v5
         with:
@@ -19,6 +17,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/${{ VERSION }}',
+              ref: 'refs/tags/${{ cat version.txt }}',
               sha: context.sha
             })
