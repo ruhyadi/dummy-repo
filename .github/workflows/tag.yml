@@ -1,19 +1,15 @@
-name: Tag
+name: Create Tag
 
 on:
   push:
-    paths:
-    - package.json
     branches:
-    - CVAT*
+      - CVAT*
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: jaliborc/action-general-autotag@1.0.0
+    - uses: actions/checkout@v3
+    - uses: butlerlogic/action-autotag@stable
       with:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        source_file: "package.json"
-        extraction_regex: "\\s*\"version\"s*:\\s*\"([\\d\\.]+)\""
