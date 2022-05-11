@@ -1,4 +1,5 @@
 #!/bin/bash
+# sh push.sh branch version
 
 branch=$1
 version=$2
