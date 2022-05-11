@@ -10,6 +10,10 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
+      - name:
+        run: ls
+      - name:
+        run: cat version.txt
       - name: Get version
         id: vars
         run: echo ::set-output name=version::$(cat version.txt)
