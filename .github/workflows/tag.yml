@@ -6,22 +6,41 @@ on:
       - CVAT*
 
 jobs:
-  build:
+  file_checking:
     permissions: write-all
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Get version
+
+      - name: Check version.txt existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "version.txt"
+
+      - run: echo ::set-output name=file_exist::${{ steps.check_files.outputs.files_exists }}
+  
+  tagging:
+    needs: [file_checking]
+    if: needs.file-checking.outputs.file_exist == 'true'
+    permission: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Retrieve version from version.txt
         id: vars
         run: echo ::set-output name=version::$(cat version.txt)
-      - name: Check version
+
+      - name: Check version existence
         uses: mukunku/tag-exists-action@v1.0.0
         id: checkTag
-        with: 
+        with:
           tag: ${{ steps.vars.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create tag
+
+      - name: Create version tag
         uses: actions/github-script@v5
         if: ${{ steps.checkTag.outputs.exists == 'false' }}
         with:
