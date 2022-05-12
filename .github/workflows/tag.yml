@@ -6,7 +6,7 @@ on:
       - CVAT*
 
 jobs:
-  file_checking:
+  file-checking:
     permissions: write-all
     runs-on: ubuntu-latest
 
@@ -19,10 +19,11 @@ jobs:
         with:
           files: "version.txt"
 
-      - run: echo ::set-output name=file_exist::${{ steps.check_files.outputs.files_exists }}
+      - name: Status
+        run: echo ::set-output name=file_exist::${{ steps.check_files.outputs.files_exists }}
   
   tagging:
-    needs: [file_checking]
+    needs: [file-checking]
     if: needs.file-checking.outputs.file_exist == 'true'
     permissions: write-all
     runs-on: ubuntu-latest
@@ -42,7 +43,7 @@ jobs:
 
       - name: Create version tag
         uses: actions/github-script@v5
-        if: ${{ steps.checkTag.outputs.exists == 'false' }}
+        if: steps.checkTag.outputs.exists == 'false'
         with:
           script: |
             github.rest.git.createRef({
