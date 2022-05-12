@@ -28,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+      
       - name: Retrieve version from version.txt
         id: vars
         run: echo ::set-output name=version::$(cat version.txt)
