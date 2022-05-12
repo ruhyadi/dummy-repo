@@ -12,7 +12,8 @@ git checkout -b $branch
 mkdir annotation
 echo 'Lorem Ipsum' > annotation/$branch.zip
 echo $version > version.txt
-git add annotation version.txt
+# git add annotation version.txt
+git add annotation
 git commit -m "CVAT commit"
 git checkout master
 git push -u origin $branch
