@@ -24,7 +24,7 @@ jobs:
   tagging:
     needs: [file_checking]
     if: needs.file-checking.outputs.file_exist == 'true'
-    permission: write-all
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
